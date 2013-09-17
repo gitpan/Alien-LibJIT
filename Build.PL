@@ -7,6 +7,7 @@ use lib qw{inc}; use Module::Build::AlienLibJIT;
 
 my %module_build_args = (
   "build_requires" => {
+    "File::ShareDir" => 0,
     "Module::Build" => "0.3601"
   },
   "configure_requires" => {
@@ -18,7 +19,7 @@ my %module_build_args = (
     "Steffen Mueller <smueller\@cpan.org>"
   ],
   "dist_name" => "Alien-LibJIT",
-  "dist_version" => "0.01",
+  "dist_version" => "0.02",
   "license" => "perl",
   "module_name" => "Alien::LibJIT",
   "recommends" => {},

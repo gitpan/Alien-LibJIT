@@ -7,7 +7,7 @@ use File::ShareDir ();
 use Config ();
 use File::Spec;
 
-our $VERSION = '0.01'; # VERSION
+our $VERSION = '0.02'; # VERSION
 
 =head1 SYNOPSIS
 

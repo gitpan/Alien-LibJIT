@@ -4,6 +4,7 @@ author:
   - 'Mattia Barbon <mattia@barbon.org>'
   - 'Steffen Mueller <smueller@cpan.org>'
 build_requires:
+  File::ShareDir: 0
   Module::Build: 0.3601
 configure_requires:
   Module::Build: 0.3601
@@ -14,4 +15,4 @@ meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: Alien-LibJIT
-version: 0.01
+version: 0.02
