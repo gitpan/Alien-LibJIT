@@ -7,7 +7,57 @@ use File::ShareDir ();
 use Config ();
 use File::Spec;
 
-our $VERSION = '0.02'; # VERSION
+our $VERSION = '0.03'; # VERSION
+
+
+sub new {
+  my $class = shift;
+
+  Carp::croak('You must call this as a class method') if ref($class);
+
+  my $self = bless {
+    base_dir => File::Spec->catdir(
+      File::ShareDir::dist_dir('Alien-LibJIT'),
+      'libjit'
+    ),
+  } => $class;
+
+  return $self;
+}
+
+
+sub lib_dir {
+  my $self = shift;
+  return $self->{lib_dir} if defined $self->{lib_dir};
+  $self->{lib_dir} = File::Spec->catdir($self->{base_dir}, 'lib');
+}
+
+
+sub static_library {
+  my $self = shift;
+  return File::Spec->catfile($self->lib_dir, "libjit" . $Config::Config{lib_ext});
+}
+
+
+sub include_dir {
+  my $self = shift;
+  return $self->{include_dir} if defined $self->{include_dir};
+  $self->{include_dir} = File::Spec->catdir($self->{base_dir}, 'include');
+}
+
+1;
+
+__END__
+
+=pod
+
+=head1 NAME
+
+Alien::LibJIT - your very own libjit for nefarious Perl purposes
+
+=head1 VERSION
+
+version 0.03
 
 =head1 SYNOPSIS
 
@@ -29,63 +79,19 @@ as of 1.9.2013.
 
 Creates a new C<Alien::LibJIT> object.
 
-=cut
-
-sub new {
-  my $class = shift;
-
-  Carp::croak('You must call this as a class method') if ref($class);
-
-  my $self = bless {
-    base_dir => File::Spec->catdir(
-      File::ShareDir::dist_dir('Alien-LibJIT'),
-      'libjit'
-    ),
-  } => $class;
-
-  return $self;
-}
-
 =head2 lib_dir
 
 Returns the directory which the libjit static library
 resides in.
 
-=cut
-
-sub lib_dir {
-  my $self = shift;
-  return $self->{lib_dir} if defined $self->{lib_dir};
-  $self->{lib_dir} = File::Spec->catdir($self->{base_dir}, 'lib');
-}
-
 =head2 static_library
 
 Returns the path to the libjit static library.
-
-=cut
-
-sub static_library {
-  my $self = shift;
-  return File::Spec->catfile($self->lib_dir, "libjit" . $Config::Config{lib_ext});
-}
 
 =head2 include_dir
 
 Returns the directory which the libjit headers
 reside in.
-
-=cut
-
-sub include_dir {
-  my $self = shift;
-  return $self->{include_dir} if defined $self->{include_dir};
-  $self->{include_dir} = File::Spec->catdir($self->{base_dir}, 'include');
-}
-
-1;
-
-__END__
 
 =head1 AUTHOR
 
@@ -129,6 +135,25 @@ L<Perl::JIT>, a JIT compiler for Perl.
 
 This module is licensed under the same terms as Perl itself,
 
+=head1 AUTHORS
+
+=over 4
+
+=item *
+
+Mattia Barbon <mattia@barbon.org>
+
+=item *
+
+Steffen Mueller <smueller@cpan.org>
+
+=back
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2013 by Steffen Mueller.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
 =cut
-
